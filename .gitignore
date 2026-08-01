@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# VS Code
+.vscode/
+
+# Logs
+logs/*.log
+
+# Generated Reports
+reports/*.json
+reports/*.csv
+reports/*.html
+reports/*.pdf
+
+# Scan History
+history/*.json
+
+# Build Files
+build/
+dist/
+*.spec
+
+# OS Files
+.DS_Store
+Thumbs.db
