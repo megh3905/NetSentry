@@ -151,7 +151,6 @@ python main.py 127.0.0.1
 ```
 
 ---
-```markdown
 # 📊 Example Output
 
 ![NetSentry Dashboard](dashboard.png)
@@ -174,9 +173,6 @@ Open Ports
 Reports Generated Successfully
 
 Scan Completed
-```
-
----
 
 # 📁 Reports
 
