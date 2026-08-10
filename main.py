@@ -5,6 +5,15 @@ Version: 1.0.0
 """
 
 import argparse
+import time
+
+from rich.console import Console
+from rich.text import Text
+from rich.panel import Panel
+from rich import box
+from rich.live import Live
+
+console = Console()
 
 from scanner.config import APP_NAME, VERSION
 from scanner.logger import setup_logger
@@ -19,12 +28,36 @@ from scanner.pdf_report import generate_pdf_report
 
 
 def print_banner():
-    """Display application banner."""
+    """Display NetSentry ASCII banner."""
 
-    print(title("=" * 60))
-    print(title(f"{APP_NAME} v{VERSION}"))
-    print(info("Advanced Python Network Port Scanner"))
-    print(title("=" * 60))
+    ascii_banner = r"""
+███╗   ██╗███████╗████████╗███████╗███╗   ██╗████████╗██████╗ ██╗   ██╗
+████╗  ██║██╔════╝╚══██╔══╝██╔════╝████╗  ██║╚══██╔══╝██╔══██╗╚██╗ ██╔╝
+██╔██╗ ██║█████╗     ██║   █████╗  ██╔██╗ ██║   ██║   ██████╔╝ ╚████╔╝
+██║╚██╗██║██╔══╝     ██║   ██╔══╝  ██║╚██╗██║   ██║   ██╔══██╗  ╚██╔╝
+██║ ╚████║███████╗   ██║   ███████╗██║ ╚████║   ██║   ██║  ██║   ██║
+╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝
+"""
+
+    banner = Text()
+    banner.append(ascii_banner, style="bold cyan")
+    banner.append(
+        "\nAdvanced Python Network Port Scanner",
+        style="bold magenta"
+    )
+    banner.append(
+        f"\nNetSentry v{VERSION}",
+        style="bold yellow"
+    )
+
+    console.print(
+        Panel(
+            banner,
+            border_style="bright_blue",
+            box=box.DOUBLE,
+            padding=(1, 2)
+        )
+    )
 
 
 def parse_arguments():
@@ -72,22 +105,57 @@ def main():
     # Display banner
     print_banner()
 
-    logger.info("NetSentry Started Successfully")
 
-    print(info("\nWelcome to NetSentry!"))
-    print(info("Scanner Engine is under development.\n"))
+    console.print(
+                    "[bold green][+] NetSentry Started Successfully[/bold green]"
+                )
 
-    logger.info("Application Loaded Successfully")
+    console.print(
+                    "[bold green][+] Application Loaded Successfully[/bold green]"
+                )
 
-    # ======================================
-    # Target Input
-    # ======================================
+    console.print()
+
+        # ======================================
+        # Startup Animation
+        # ======================================
+
+    console.print(
+                    "[bold cyan][*] Initializing Scanner Engine...[/bold cyan]"
+                )
+
+    for i in range(3):
+
+        console.print(
+                     f"[cyan]    Loading module {i + 1}/3...[/cyan]"
+                 )
+        time.sleep(0.25)
+
+    console.print(
+                    "[bold green][✓] Scanner Engine Ready[/bold green]"
+                )
+
+    console.print(
+                    "[bold green][✓] Service Detection Ready[/bold green]"
+                )
+
+    console.print(
+                    "[bold green][✓] Reporting Module Ready[/bold green]"
+                )
+
+    console.print()
+
+# ======================================
+# Target Input
+# =======================================
 
     if args.target:
         target = args.target
     else:
-        target = input(info("Enter Target IP or Hostname: ")).strip()
-
+        target = console.input(
+                                "[bold cyan]Enter Target IP or Hostname: [/bold cyan]"
+                            ).strip()
+        
     # ======================================
     # Host Discovery
     # ======================================
