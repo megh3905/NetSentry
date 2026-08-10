@@ -154,7 +154,7 @@ python main.py 127.0.0.1
 ```markdown
 # 📊 Example Output
 
-![NetSentry Dashboard](Screenshot/Dashboard.png)
+![NetSentry Dashboard](dashboard.png)
 
 ```text
 Target : scanme.nmap.org
