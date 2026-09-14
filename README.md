@@ -9,61 +9,68 @@
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
 
-Fast • Lightweight • Multithreaded • Professional Reporting
+**Fast • Lightweight • Multithreaded • Professional Reporting**
 
 </div>
 
 ---
 
-# 📖 Table of Contents
+## 📖 Table of Contents
 
-- Overview
-- Features
-- Project Structure
-- Technologies Used
-- Installation
-- Usage
-- Example Output
-- Reports
-- Future Enhancements
-- License
-- Author
-
----
-
-# 🚀 Overview
-
-NetSentry is a professional Python-based network port scanner developed for Cyber Security students, penetration testers, and security analysts.
-
-It performs high-speed multithreaded TCP port scanning, detects running services, grabs service banners, verifies host availability, and generates detailed reports in multiple formats.
-
-The project follows a modular architecture for scalability, maintainability, and future feature expansion.
+- [Overview](#-overview)
+- [Features](#-features)
+- [Project Structure](#-project-structure)
+- [Architecture](#-architecture)
+- [Technologies Used](#-technologies-used)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Executable Release](#-executable-release)
+- [Reports](#-reports)
+- [Testing](#-testing)
+- [Security and Responsible Use](#-security-and-responsible-use)
+- [Future Enhancements](#-future-enhancements)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Author](#-author)
 
 ---
 
-# ✨ Features
+## 🚀 Overview
+
+**NetSentry** is a modular Python-based network port scanner designed for cyber security students, penetration testers, and security analysts.
+
+It performs TCP port scanning, checks host availability, identifies common services, grabs service banners, and generates reports in multiple formats. The project uses a clean, modular architecture to support maintainability, testing, and future feature expansion.
+
+> **NetSentry = Network + Sentry**  
+> A lightweight network guardian for visibility and security assessment.
+
+---
+
+## ✨ Features
 
 | Feature | Status |
-|----------|--------|
-| TCP Port Scanner | ✅ |
-| Multithreading | ✅ |
+|---|:---:|
+| TCP Port Scanning | ✅ |
+| Multithreaded Scanning | ✅ |
 | Host Discovery | ✅ |
 | Service Detection | ✅ |
-| Banner Grabbing | ✅ |
+| HTTP/HTTPS Banner Grabbing | ✅ |
+| Generic Banner Grabbing | ✅ |
 | Progress Bar | ✅ |
 | Colored CLI Output | ✅ |
+| Input Validation | ✅ |
 | Logging | ✅ |
 | Scan History | ✅ |
-| JSON Report | ✅ |
-| CSV Report | ✅ |
-| HTML Report | ✅ |
-| PDF Report | ✅ |
-| Input Validation | ✅ |
-| Cross Platform | ✅ |
+| JSON Reports | ✅ |
+| CSV Reports | ✅ |
+| HTML Reports | ✅ |
+| PDF Reports | ✅ |
+| Unit Tests | ✅ |
+| Windows and Linux Support | ✅ |
 
 ---
 
-# 📂 Project Structure
+## 📂 Project Structure
 
 ```text
 NetSentry/
@@ -72,199 +79,292 @@ NetSentry/
 ├── requirements.txt
 ├── README.md
 ├── LICENSE
+├── .gitignore
+│
+├── assets/
+│   ├── NetSentry.ico
+│   └── NetSentry.png
 │
 ├── scanner/
-│   ├── scanner.py
-│   ├── banner.py
-│   ├── service.py
-│   ├── report.py
-│   ├── pdf_report.py
-│   ├── history.py
-│   ├── host.py
-│   ├── logger.py
-│   ├── validator.py
+│   ├── __init__.py
 │   ├── config.py
-│   └── exceptions.py
+│   ├── validator.py
+│   ├── exceptions.py
+│   ├── logger.py
+│   ├── scanner.py
+│   ├── service.py
+│   ├── banner.py
+│   ├── report.py
+│   ├── history.py
+│   ├── colors.py
+│   ├── host.py
+│   └── pdf_report.py
+│
+├── tests/
+│   ├── __init__.py
+│   ├── test_banner.py
+│   ├── test_history.py
+│   ├── test_scanner.py
+│   ├── test_service.py
+│   └── test_validator.py
 │
 ├── reports/
 ├── history/
-├── logs/
-└── tests/
+└── logs/
 ```
 
 ---
 
-# 🛠 Technologies Used
+## 🏗 Architecture
 
-- Python 3.12
-- Socket Programming
-- ThreadPoolExecutor
-- tqdm
-- colorama
-- reportlab
-- JSON
-- HTML
-- CSV
+```text
+User
+  │
+  ▼
+Command-Line Interface
+  │
+  ▼
+Input Validation
+  │
+  ▼
+Host Discovery
+  │
+  ▼
+Multithreaded TCP Scanner
+  │
+  ├──► Service Detection
+  │
+  └──► Banner Grabbing
+          │
+          ▼
+     Report Generator
+          │
+          ├──► JSON
+          ├──► CSV
+          ├──► HTML
+          └──► PDF
+          │
+          ▼
+     Scan History and Logs
+```
 
 ---
 
-# ⚙ Installation
+## 🛠 Technologies Used
 
-Clone Repository
+- **Python 3.12**
+- **Socket Programming**
+- **ThreadPoolExecutor**
+- **argparse**
+- **tqdm**
+- **colorama**
+- **ReportLab**
+- **JSON**
+- **CSV**
+- **HTML**
+- **pytest**
+
+---
+
+## ⚙️ Installation
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/megh3905/NetSentry.git
 ```
 
-Go into project directory
+### 2. Open the project directory
 
 ```bash
 cd NetSentry
 ```
 
-Install dependencies
+### 3. Create and activate a virtual environment
+
+#### Windows PowerShell
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+#### Linux
 
 ```bash
-pip install -r requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 4. Install dependencies
+
+```bash
+python -m pip install -r requirements.txt
 ```
 
 ---
 
-# ▶ Usage
+## ▶️ Usage
 
-Scan default ports
+### Display the help menu
+
+```bash
+python main.py --help
+```
+
+### Scan a target using the default configuration
 
 ```bash
 python main.py scanme.nmap.org
 ```
 
-Scan custom range
+### Scan a custom port range
 
 ```bash
 python main.py scanme.nmap.org --start 1 --end 1000
 ```
 
-Scan localhost
+### Scan localhost
 
 ```bash
 python main.py 127.0.0.1
 ```
 
----
-# 📊 Example Output
+> Only scan systems that you own or have explicit permission to assess.
 
-![NetSentry Dashboard](dashboard.png)
+---
+
+## 📦 Executable Release
+
+A standalone Windows executable is available in the GitHub Releases section.
+
+1. Open the repository's **Releases** page.
+2. Open the latest release.
+3. Download `NetSentry.exe`.
+4. Run the executable from Windows.
+
+The executable includes the NetSentry application and uses the custom NetSentry icon.
+
+---
+
+## 📊 Example Output
 
 ```text
-Target : scanme.nmap.org
-
+Target      : scanme.nmap.org
 Host Status : Alive
-
-Scanning Ports...
 
 Scanning: 100% |████████████████████████|
 
-Open Ports
+OPEN PORTS
+PORT     SERVICE              BANNER
+22       SSH                  OpenSSH
+80       HTTP                 Apache
+443      HTTPS                Open
 
-22    SSH
-80    HTTP
-443   HTTPS
-
-Reports Generated Successfully
-
-Scan Completed
-
-# 📁 Reports
-
-After every successful scan NetSentry automatically generates:
-
-- JSON Report
-- CSV Report
-- HTML Report
-- PDF Report
-
-All reports are stored inside
-
+Reports generated successfully.
+Scan completed.
 ```
+
+---
+
+## 📁 Reports
+
+After a successful scan, NetSentry can generate reports in the following formats:
+
+- **JSON** — structured machine-readable results
+- **CSV** — spreadsheet-friendly results
+- **HTML** — browser-readable report
+- **PDF** — printable professional report
+
+Generated reports are stored in:
+
+```text
 reports/
 ```
 
----
+Additional runtime data is stored in:
 
-# 🏗 Architecture
-
-```
-User
-   │
-   ▼
-Input Validation
-   │
-   ▼
-Host Discovery
-   │
-   ▼
-TCP Scanner
-   │
-   ▼
-Service Detection
-   │
-   ▼
-Banner Grabbing
-   │
-   ▼
-Report Generator
-   │
-   ▼
-History & Logs
+```text
+history/
+logs/
 ```
 
 ---
 
-# 🔮 Future Enhancements
+## 🧪 Testing
 
-- UDP Port Scanning
-- OS Fingerprinting
-- CVE Lookup
-- NSE Script Support
-- GUI Interface
-- Export to XML
-- Scheduled Scans
-- Docker Support
+Run the test suite with:
 
----
+```bash
+pytest
+```
 
-# 🤝 Contributing
+The tests cover important components such as:
 
-Contributions, improvements, and suggestions are welcome.
-
-Fork the repository
-
-Create a new branch
-
-Commit your changes
-
-Open a Pull Request
+- Input validation
+- Port scanning behavior
+- Service detection
+- Banner grabbing
+- Scan history
 
 ---
 
-# 📜 License
+## 🔐 Security and Responsible Use
 
-This project is licensed under the MIT License.
+NetSentry is intended for **authorized security testing, learning, troubleshooting, and network administration**.
+
+Do not scan public systems, networks, or devices without explicit permission. The author is not responsible for misuse of this tool.
 
 ---
 
-# 👨‍💻 Author
+## 🔮 Future Enhancements
+
+- UDP port scanning
+- Operating system fingerprinting
+- CVE and vulnerability lookup
+- XML report export
+- Scheduled scans
+- Docker support
+- Advanced service fingerprinting
+- Optional GUI interface
+- Improved stealth and rate-control options
+
+---
+
+## 🤝 Contributing
+
+Contributions, improvements, bug reports, and suggestions are welcome.
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Make your changes.
+4. Run the test suite.
+5. Commit and push your changes.
+6. Open a Pull Request.
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👨‍💻 Author
 
 ### Megh Bhavsar
 
-Bachelor of Engineering in Computer Science & Engineering (Cyber Security)
+Bachelor of Engineering in Computer Science and Engineering  
+Specialization: Cyber Security
+
+- GitHub: [@megh3905](https://github.com/megh3905)
 
 ---
 
 <div align="center">
 
-⭐ If you like this project, don't forget to star the repository.
+⭐ If you find NetSentry useful, consider starring the repository.
 
-Made with ❤️ using Python
+**Made with ❤️ using Python**
 
 </div>
